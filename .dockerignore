@@ -1,0 +1,101 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Python cache
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.cover
+
+# Documentation
+*.md
+README.md
+docs/
+*.txt.bak
+
+# Docker files (don't need these inside the image)
+docker-compose.yml
+docker-compose.*.yml
+Dockerfile
+.dockerignore
+
+# Database files
+*.sqlite3
+*.db
+db.sqlite3
+
+# Environment files
+.env
+.env.*
+*.env
+
+# Logs
+*.log
+logs/
+
+# Media and static files (if collected separately)
+# Uncomment if you collect static files outside Docker
+# staticfiles/
+# media/
+
+# Node modules (if any)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# pgAdmin data
+pgadmin_data/
+
+# Redis dump
+dump.rdb
+
+# Celery beat schedule
+celerybeat-schedule
+celerybeat.pid
+
+# Migration backups
+**/migrations/*.pyc
