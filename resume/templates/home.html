@@ -1,0 +1,89 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="section" data-aos="fade-up">
+  <div class="row align-items-center g-4">
+    <div class="col-12 col-md-5 text-center">
+      <img
+        id="heroPhoto"
+        src="{% static 'images/Graduation photo unisa.jpg' %}"
+        alt="Bethuel Moukangwe"
+        class="hero-photo animate-fade-in-up fade-photo-in"
+      >
+    </div>
+    <div class="col-12 col-md-7">
+      <h2 class="mb-3 animate-fade-in-up">Welcome</h2>
+      <p class="lead mb-3 animate-fade-in-up" data-aos="fade-up" data-aos-delay="100">
+        I build modern, scalable web applications with Python and Django, focusing on clean
+        architecture, performance, and great user experience.
+      </p>
+      <p class="animate-fade-in-up" data-aos="fade-up" data-aos-delay="200">
+        From backend APIs to polished frontends, I enjoy turning ideas into reliable
+        products. Explore my projects, experience and education to see what I can bring
+        to your team or next project.
+      </p>
+      <div class="mt-3 animate-fade-in-up" data-aos="fade-up" data-aos-delay="300">
+        <a href="{% url 'projects' %}" class="btn btn-primary me-2">View Projects</a>
+        <a href="{% url 'contact' %}" class="btn btn-outline-primary">Contact Me</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-aos="fade-up" data-aos-delay="150">
+  <div class="row g-4">
+    <div class="col-12 col-md-4">
+      <div class="skill-item h-100">
+        <h3 class="mb-2">Web Development</h3>
+        <p class="mb-0">Python, Django, REST APIs, HTML, CSS, JavaScript.</p>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="skill-item h-100">
+        <h3 class="mb-2">Data & Cloud</h3>
+        <p class="mb-0">Data Engineering, databases, and cloud tooling.</p>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="skill-item h-100">
+        <h3 class="mb-2">Teaching & Mentorship</h3>
+        <p class="mb-0">Helping others learn Python, Django, and best practices.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const hero = document.getElementById('heroPhoto');
+    if (!hero) return;
+
+    const photos = [
+      "{% static 'images/Graduation photo unisa.jpg' %}",
+      "{% static 'images/WhatsApp Image 2024-02-18 at 21.46.02_b4f4f1cf.jpg' %}",
+      "{% static 'images/WhatsApp Image 2024-02-18 at 21.46.05_0038bab3.jpg' %}",
+      "{% static 'images/WhatsApp Image 2024-02-18 at 21.47.17_b47358a4.jpg' %}",
+    ];
+
+    let index = 0;
+    const changeInterval = 5000; // 5 seconds per photo
+
+    setInterval(() => {
+      index = (index + 1) % photos.length;
+      hero.classList.remove('fade-photo-in');
+      hero.classList.add('fade-photo-out');
+
+      setTimeout(() => {
+        hero.src = photos[index];
+        hero.classList.remove('fade-photo-out');
+        hero.classList.add('fade-photo-in');
+      }, 400); // match CSS transition duration
+    }, changeInterval);
+  });
+</script>
+{% endblock %}

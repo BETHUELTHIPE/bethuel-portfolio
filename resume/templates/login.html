@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% block title %}Login{% endblock %}
+{% block content1 %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-lg mt-5 animate__animated animate__fadeIn">
+      <div class="card-body">
+        <h2 class="mb-4 text-center">Login</h2>
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mt-2">{{ message|safe }}</div>
+          {% endfor %}
+        {% endif %}
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary w-100 mt-2">Login</button>
+        </form>
+        <div class="text-center mt-3">
+          <a href="{% provider_login_url 'google' %}" class="btn btn-outline-danger w-100">
+            <i class="fab fa-google me-2"></i> Continue with Google
+          </a>
+        </div>
+        <div class="mt-3 text-center">
+          <span>Don't have an account?</span>
+          <a href="{% url 'register' %}">Register</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

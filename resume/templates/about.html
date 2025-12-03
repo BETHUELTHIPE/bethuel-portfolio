@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="section" data-aos="fade-up">
+  <div class="row align-items-center g-4">
+    <div class="col-md-4 text-center">
+      <img src="{% static 'images/Graduation photo unisa.jpg' %}" alt="Bethuel Moukangwe" class="about_image">
+    </div>
+    <div class="col-md-8">
+      <h2 class="mb-3">About Me</h2>
+      <p class="mb-3">
+        My vision is to build software and websites that not only meet technical requirements
+        but also deliver value by improving user experiences and solving complex challenges.
+        I believe that technology should be both functional and intuitive.
+      </p>
+      <p class="mb-0">
+        Skilled in Python, Django, Django REST Framework, Machine Learning and AWS services, I
+        enjoy helping others learn while continually sharpening my own skills.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-aos="fade-up" data-aos-delay="150">
+  <h2 class="text-center mb-4">My Tech Stack</h2>
+  <div class="d-flex justify-content-around align-items-center flex-wrap gap-3">
+    <img src="{% static 'images/html.png' %}" width="70" height="70" alt="HTML" class="img-fluid">
+    <img src="{% static 'images/css.png' %}" width="70" height="70" alt="CSS" class="img-fluid">
+    <img src="{% static 'images/js.png' %}" width="70" height="70" alt="JavaScript" class="img-fluid">
+    <img src="{% static 'images/python.jpg' %}" width="60" height="60" alt="Python" class="img-fluid">
+    <img src="{% static 'images/react.png' %}" width="60" height="60" alt="React" class="img-fluid">
+    <img src="{% static 'images/download.png' %}" width="70" height="70" alt="Django" class="img-fluid">
+  </div>
+</section>
+{% endblock %}

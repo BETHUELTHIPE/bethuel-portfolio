@@ -1,0 +1,188 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top" data-aos="fade-down">
+    <div class="container">
+        <!-- Brand/logo -->
+        
+        
+        <!-- Mobile menu button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Navigation links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/' %}active fw-bold{% endif %}" 
+                       href="{% url 'home' %}">
+                        <i class="fas fa-home me-1"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if '/about/' in request.path %}active fw-bold{% endif %}" 
+                       href="{% url 'about' %}">
+                        <i class="fas fa-user me-1"></i> About
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if '/projects/' in request.path %}active fw-bold{% endif %}" 
+                       href="{% url 'projects' %}">
+                        <i class="fas fa-code me-1"></i> Projects
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if '/experience/' in request.path %}active fw-bold{% endif %}" 
+                       href="{% url 'experience' %}">
+                        <i class="fas fa-briefcase me-1"></i> Experience
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if '/certificate/' in request.path %}active fw-bold{% endif %}" 
+                       href="{% url 'certificate' %}">
+                        <i class="fas fa-certificate me-1"></i> Certifications
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if '/contact/' in request.path %}active fw-bold{% endif %}" 
+                       href="{% url 'contact' %}">
+                        <i class="fas fa-envelope me-1"></i> Contact
+                    </a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if '/profile/' in request.path %}active fw-bold{% endif %}" href="{% url 'profile' %}">
+                            <i class="fas fa-user-circle me-1"></i> Profile
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a href="{% url 'resume' %}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-file-download me-1"></i> Download Resume
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <a href="{% url 'email_resume' %}" class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-paper-plane me-1"></i> Email Resume
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-sign-in-alt me-1"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <a href="{% url 'register' %}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-user-plus me-1"></i> Register
+                        </a>
+                    </li>
+                {% endif %}
+                
+                <!-- Theme Toggle Button -->
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                    <button class="btn btn-sm btn-outline-secondary" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                        <span class="d-none d-md-inline">Dark Mode</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Add some padding to the top of the body to account for fixed navbar -->
+<style>
+    body {
+        padding-top: 76px;
+    }
+    
+    @media (max-width: 991.98px) {
+        body {
+            padding-top: 66px;
+        }
+    }
+    
+    .navbar {
+        transition: all 0.3s ease;
+    }
+    
+    .navbar.scrolled {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-link {
+        position: relative;
+        padding: 0.5rem 1rem;
+        margin: 0 0.25rem;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background-color: var(--accent-color);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+    
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        width: 70%;
+    }
+    
+    .nav-link i {
+        transition: transform 0.3s ease;
+    }
+    
+    .nav-link:hover i {
+        transform: translateY(-2px);
+    }
+</style>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    // Check for saved user preference, if any, on load of the website
+    if (localStorage.getItem('theme') === 'dark') {
+        html.setAttribute('data-bs-theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun me-1"></i><span class="d-none d-md-inline">Light Mode</span>';
+    } else {
+        html.setAttribute('data-bs-theme', 'light');
+        themeToggle.innerHTML = '<i class="fas fa-moon me-1"></i><span class="d-none d-md-inline">Dark Mode</span>';
+    }
+    
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+        if (html.getAttribute('data-bs-theme') === 'dark') {
+            html.setAttribute('data-bs-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            themeToggle.innerHTML = '<i class="fas fa-moon me-1"></i><span class="d-none d-md-inline">Dark Mode</span>';
+        } else {
+            html.setAttribute('data-bs-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            themeToggle.innerHTML = '<i class="fas fa-sun me-1"></i><span class="d-none d-md-inline">Light Mode</span>';
+        }
+    });
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+</script>

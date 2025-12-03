@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="section" data-aos="fade-up">
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+    <div>
+      <h2 class="mb-1">Featured Projects</h2>
+      <p class="mb-0 text-muted">A selection of end-to-end data and web solutions I have delivered.</p>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    {% for project in projects_show %}
+    <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+      <a href="{{ project.link }}" class="text-decoration-none" target="_blank" rel="noopener noreferrer">
+        <div class="project-card">
+          <img src="{% static project.path %}" alt="{{ project.title }}">
+          <div class="card-body">
+            <h4 class="card-title mb-2 text-capitalize">{{ project.title|cut:'-'|title }}</h4>
+            <p class="card-text mb-3">Click to explore the code and architecture behind this project.</p>
+            <span class="btn btn-sm btn-primary">View Project</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

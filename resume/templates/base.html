@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Portfolio of Bethuel - Data Engineer, Web Developer, and Educator" />
+    <meta name="author" content="Bethuel" />
+    
+    <title>{% block title %}Bethuel - Portfolio{% endblock title %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+    
+    <!-- Bootstrap CSS -->
+    <link 
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+      rel="stylesheet" 
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+      crossorigin="anonymous" />
+      
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    {% block extra_css %}{% endblock %}
+  </head>
+  
+  <body>
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop">
+      <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <!-- Header -->
+    <header class="professional-header">
+      <div class="container" data-aos="fade-down">
+        <h1 class="display-4 mb-2 animate-fade-in-up">Bethuel Moukangwe</h1>
+        <p class="lead mb-0 animate-fade-in-up" data-aos="fade-up" data-aos-delay="150">
+          <span class="typewriter" data-words='["Data Engineer", "Web Developer", "Educator"]'></span>
+        </p>
+      </div>
+    </header>
+    
+    <!-- Navigation -->
+    {% include "navbar.html" %}
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container py-5">
+        {% if messages %}
+          <div class="messages">
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        
+        {% block content %}{% endblock %}
+        {% block content1 %}{% endblock content1 %}
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" data-aos="fade-up">
+      <div class="container">
+        <div class="footer-links">
+          <a href="{% url 'home' %}">Home</a>
+          <a href="{% url 'about' %}">About</a>
+          <a href="{% url 'projects' %}">Projects</a>
+          <a href="{% url 'experience' %}">Experience</a>
+          <a href="{% url 'certificate' %}">Certificates</a>
+          <a href="{% url 'contact' %}">Contact</a>
+        </div>
+        
+        <div class="footer-social">
+          <a href="https://wa.me/27714156665" target="_blank" class="social_links" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/bethuel-moukangwe-93976a1a3" target="_blank" rel="noopener noreferrer" class="social_links" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.youtube.com/@bethuelthipe-moukangwe7786" target="_blank" rel="noopener noreferrer" class="social_links" title="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="https://www.instagram.com/bethuelthipe" target="_blank" rel="noopener noreferrer" class="social_links" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://github.com/BETHUELTHIPE/" target="_blank" rel="noopener noreferrer" class="social_links" title="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+        
+        <div class="footer-copyright">
+          <p class="mb-0">&copy; <span id="current-year">2024</span> Bethuel Web Applications. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous">
+    </script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+      });
+      
+      // Back to Top Button
+      const backToTopButton = document.getElementById('backToTop');
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('visible');
+        } else {
+          backToTopButton.classList.remove('visible');
+        }
+      });
+      
+      backToTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+      
+      // Update copyright year
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+      
+      // Typewriter effect
+      class TypeWriter {
+        constructor(txtElement, words, wait = 3000) {
+          this.txtElement = txtElement;
+          this.words = words;
+          this.txt = '';
+          this.wordIndex = 0;
+          this.wait = parseInt(wait, 10);
+          this.type();
+          this.isDeleting = false;
+        }
+
+        type() {
+          // Current index of word
+          const current = this.wordIndex % this.words.length;
+          // Get full text of current word
+          const fullTxt = this.words[current];
+
+          // Check if deleting
+          if (this.isDeleting) {
+            // Remove char
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+          } else {
+            // Add char
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+          }
+
+          // Insert txt into element
+          this.txtElement.innerHTML = `<span class="txt">${this.txt}</span>`;
+
+          // Initial Type Speed
+          let typeSpeed = 200;
+
+          if (this.isDeleting) {
+            typeSpeed /= 2;
+          }
+
+          // If word is complete
+          if (!this.isDeleting && this.txt === fullTxt) {
+            // Make pause at end
+            typeSpeed = this.wait;
+            // Set delete to true
+            this.isDeleting = true;
+          } else if (this.isDeleting && this.txt === '') {
+            this.isDeleting = false;
+            // Move to next word
+            this.wordIndex++;
+            // Pause before start typing
+            typeSpeed = 500;
+          }
+
+          setTimeout(() => this.type(), typeSpeed);
+        }
+      }
+
+      // Init On DOM Load
+      document.addEventListener('DOMContentLoaded', () => {
+        const txtElement = document.querySelector('.typewriter');
+        if (txtElement) {
+          const words = JSON.parse(txtElement.getAttribute('data-words'));
+          const wait = txtElement.getAttribute('data-wait') || 3000;
+          // Init TypeWriter
+          new TypeWriter(txtElement, words, wait);
+        }
+      });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

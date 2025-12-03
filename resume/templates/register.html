@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content1 %}
+<div class="row justify-content-center align-items-center auth-page">
+  <div class="col-md-7 col-lg-5">
+    <div class="card shadow p-4 animate__animated animate__fadeIn auth-card">
+      <div class="card-body">
+        <h2 class="mb-3 text-center auth-title">Create Your Account</h2>
+        <p class="text-center mb-4 auth-subtitle">
+          Sign up to access exclusive features and download the resume. All fields are required.
+        </p>
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mt-2">{{ message|safe }}</div>
+          {% endfor %}
+        {% endif %}
+
+        <form method="post" autocomplete="off">
+          {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-12">
+              {{ form.username.label_tag }}
+              {{ form.username }}
+              {% for error in form.username.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+
+            <div class="col-md-6">
+              {{ form.first_name.label_tag }}
+              {{ form.first_name }}
+              {% for error in form.first_name.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+
+            <div class="col-md-6">
+              {{ form.last_name.label_tag }}
+              {{ form.last_name }}
+              {% for error in form.last_name.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+
+            <div class="col-md-6">
+              {{ form.email.label_tag }}
+              {{ form.email }}
+              {% for error in form.email.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+
+            <div class="col-md-6">
+              {{ form.cell_number.label_tag }}
+              {{ form.cell_number }}
+              {% for error in form.cell_number.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+
+            <div class="col-12">
+              {{ form.address.label_tag }}
+              {{ form.address }}
+              {% for error in form.address.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+
+            <div class="col-md-6">
+              {{ form.password1.label_tag }}
+              {{ form.password1 }}
+              {% for error in form.password1.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+
+            <div class="col-md-6">
+              {{ form.password2.label_tag }}
+              {{ form.password2 }}
+              {% for error in form.password2.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 mt-4 py-2" style="font-size: 1.15rem;">
+            Register
+          </button>
+        </form>
+
+        <div class="mt-3 text-center">
+          <span>or</span>
+        </div>
+
+        <div class="d-grid gap-2 mt-2">
+          <a href="/accounts/google/login/" class="btn btn-outline-dark py-2" style="font-size: 1.05rem;">
+            Continue with Google
+          </a>
+        </div>
+
+        <div class="mt-4 text-center">
+          <span>Already have an account?</span>
+          <a href="{% url 'login' %}">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

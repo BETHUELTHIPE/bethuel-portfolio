@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Check Your Email{% endblock %}
+{% block content1 %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-lg mt-5 animate__animated animate__fadeIn">
+      <div class="card-body text-center">
+        <h2 class="mb-4">Verify Your Email</h2>
+        <p>We have sent a verification link to <strong>{{ email }}</strong>.</p>
+        <p>Please check your inbox and click the link to activate your account.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="section" data-aos="fade-up">
+  <h2 class="text-center mb-4">Experience</h2>
+  <div class="timeline">
+    {% for eachitem in experience %}
+    <div class="timeline-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+      <span class="timeline-date">{{ eachitem.start_date }}{% if eachitem.end_date %} - {{ eachitem.end_date }}{% endif %}</span>
+      <span class="timeline-company">{{ eachitem.company }}</span>
+      <h3 class="timeline-title">{{ eachitem.position }}</h3>
+      {% if eachitem.description %}
+      <p class="mb-0">{{ eachitem.description }}</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}My Profile{% endblock %}
+{% block content %}
+<section class="section" data-aos="fade-up">
+  <h2 class="mb-4">My Profile</h2>
+  <form method="post" enctype="multipart/form-data" class="row g-4">
+    {% csrf_token %}
+    <div class="col-md-4 text-center">
+      {% if form.instance.photo %}
+        <img src="{{ form.instance.photo.url }}" alt="Profile photo" class="about_image mb-3">
+      {% endif %}
+      {{ form.photo.label_tag }}
+      {{ form.photo }}
+    </div>
+    <div class="col-md-8">
+      <div class="mb-3">
+        {{ form.cell_number.label_tag }}
+        {{ form.cell_number|add_class:'form-control' }}
+      </div>
+      <div class="mb-3">
+        {{ form.address.label_tag }}
+        {{ form.address|add_class:'form-control' }}
+      </div>
+      <div class="mb-3">
+        {{ form.biography.label_tag }}
+        {{ form.biography|add_class:'form-control' }}
+      </div>
+      <button type="submit" class="btn btn-primary">Save Profile</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

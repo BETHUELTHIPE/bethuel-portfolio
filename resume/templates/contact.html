@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="section" data-aos="fade-up">
+  <div class="row g-4">
+    <div class="col-md-4 text-center d-flex flex-column justify-content-center">
+      <h2 class="mb-3">Stay Connected</h2>
+      <p class="mb-1">bethuelthipe@gmail.com</p>
+      <p class="mb-3">Call me: 071 415 6665</p>
+      <a href="https://wa.me/27714156665" target="_blank" class="btn btn-success">
+        Chat with me on WhatsApp
+      </a>
+    </div>
+    <div class="col-md-8">
+      <div class="contact-form">
+        <form method="post" action="{% url 'contact' %}">
+          {% csrf_token %}
+          {{ form.honeypot }}
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Your Name" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Cell</label>
+            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Cell Number" required minlength="10">
+          </div>
+          <div class="mb-3">
+            <label for="msg" class="form-label">Message</label>
+            <textarea class="form-control" name="message" id="msg" rows="4" placeholder="Your Message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-aos="fade-up" data-aos-delay="150">
+  <h2 class="text-center mb-4">My Location</h2>
+  <div class="ratio ratio-16x9">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3584.4619515562636!2d28.220475073844767!3d-26.051155157755396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e956b69f35fd8db%3A0xefbdf12fa2be85c0!2s2%20Erasmus%20St%2C%20Norkem%20Park%2C%20Kempton%20Park%2C%201618!5e0!3m2!1sen!2sza!4v1729363576022!5m2!1sen!2sza"
+            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</section>
+{% endblock %}
