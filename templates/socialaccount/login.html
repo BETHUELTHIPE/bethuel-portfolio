@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Sign in with Google" %}{% endblock %}
+
+{% block content1 %}
+<div class="row justify-content-center align-items-center auth-page">
+  <div class="col-md-7 col-lg-5">
+    <div class="card shadow p-4 animate__animated animate__fadeIn auth-card">
+      <div class="card-body">
+        <h2 class="mb-3 text-center auth-title">Sign in with Google</h2>
+        <p class="text-center mb-4 auth-subtitle">
+          You are about to sign in using your Google account.
+        </p>
+
+        <form method="post" action="{% url 'socialaccount_login' process.provider.id %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary w-100 mt-2 py-2" style="font-size: 1.1rem;">
+            {% trans "Continue" %}
+          </button>
+        </form>
+
+        <div class="mt-4 text-center">
+          <a href="{% url 'login' %}">{% trans "Back to login" %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
