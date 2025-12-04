@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Contact, EmailVerification, UserProfile
+from .models import Contact, EmailVerification, UserProfile, Resume
 
 
 @admin.register(UserProfile)
@@ -21,3 +21,21 @@ class EmailVerificationAdmin(admin.ModelAdmin):
     list_display = ('user', 'token', 'is_verified', 'created_at')
     search_fields = ('user__username', 'user__email')
     list_filter = ('is_verified', 'created_at')
+
+
+@admin.register(Resume)
+class ResumeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'file', 'is_active', 'uploaded_at')
+    list_filter = ('is_active', 'uploaded_at')
+    search_fields = ('title',)
+    readonly_fields = ('uploaded_at',)
+    
+    fieldsets = (
+        ('Resume Information', {
+            'fields': ('title', 'file', 'is_active')
+        }),
+        ('Metadata', {
+            'fields': ('uploaded_at',),
+            'classes': ('collapse',)
+        }),
+    )

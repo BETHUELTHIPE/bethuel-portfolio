@@ -39,3 +39,25 @@ class EmailVerification(models.Model):
 
     def __str__(self):
         return f"Verification for {self.user.username}"
+
+
+# Resume upload model for admin
+class Resume(models.Model):
+    title = models.CharField(max_length=200, default="My Resume")
+    file = models.FileField(upload_to='myapp/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True, help_text="Set as active resume")
+
+    class Meta:
+        ordering = ['-uploaded_at']
+        verbose_name = "Resume"
+        verbose_name_plural = "Resumes"
+
+    def __str__(self):
+        return f"{self.title} - {'Active' if self.is_active else 'Inactive'}"
+
+    def save(self, *args, **kwargs):
+        # If this resume is set as active, deactivate all others
+        if self.is_active:
+            Resume.objects.filter(is_active=True).update(is_active=False)
+        super().save(*args, **kwargs)
