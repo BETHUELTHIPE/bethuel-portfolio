@@ -66,10 +66,12 @@ def send_resume_email_task(recipient_email):
             "Atteridgeville\n"
             "Pretoria West, 0006\n"
             "South Africa\n\n"
+            "Contact Information:\n"
+            "Email: bethuelmoukangwe8@gmail.com\n"
+            "Cell: 071415 6665\n\n"
             "Best regards,\n"
             "Bethuel Moukangwe\n"
-            "Data Engineer\n"
-            "Email: bethuelmoukangwe8@gmail.com"
+            "Data Engineer"
         )
         from_email = settings.EMAIL_HOST_USER or 'bethuelmoukangwe8@gmail.com'
 
