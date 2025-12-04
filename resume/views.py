@@ -170,14 +170,29 @@ def email_resume(request):
         messages.error(request, 'No email address is associated with this account. Please update your profile.')
         return redirect('home')
 
-    # Queue Celery task to send the resume PDF as an email attachment
-    send_resume_email_task.delay(request.user.email)
+    try:
+        # Queue Celery task to send the resume PDF as an email attachment
+        send_resume_email_task.delay(request.user.email)
 
-    # Increment per-user email counter
-    profile, _ = UserProfile.objects.get_or_create(user=request.user)
-    profile.resume_email_count += 1
-    profile.save(update_fields=['resume_email_count'])
-    messages.success(request, 'Your resume has been emailed to your registered address.')
+        # Increment per-user email counter
+        profile, _ = UserProfile.objects.get_or_create(user=request.user)
+        profile.resume_email_count += 1
+        profile.save(update_fields=['resume_email_count'])
+        
+        messages.success(
+            request, 
+            f'Resume is being sent to {request.user.email}. Please check your inbox in a few moments.'
+        )
+    except Exception as e:
+        messages.error(
+            request, 
+            'There was an error processing your request. Please try again later or contact support.'
+        )
+        # Log the error for debugging
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Email resume error for user {request.user.username}: {str(e)}")
+    
     return redirect('home')
 
 

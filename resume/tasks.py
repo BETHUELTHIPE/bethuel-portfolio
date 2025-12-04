@@ -29,21 +29,51 @@ def send_verification_email_task(subject, message, recipient_email):
 @shared_task
 def send_resume_email_task(recipient_email):
     """Email the resume PDF to the given recipient, if available."""
-    resume_path = "myapp/resume.pdf"
-    if not staticfiles_storage.exists(resume_path):
-        return
+    import logging
+    logger = logging.getLogger(__name__)
+    
+    try:
+        # Try to get the active resume from database first
+        from .models import Resume
+        active_resume = Resume.objects.filter(is_active=True).first()
+        
+        if active_resume and active_resume.file:
+            # Use the uploaded resume from database
+            with active_resume.file.open('rb') as resume_file:
+                content = resume_file.read()
+            filename = active_resume.file.name.split('/')[-1]
+        else:
+            # Fallback to static resume
+            resume_path = "myapp/resume.pdf"
+            if not staticfiles_storage.exists(resume_path):
+                logger.warning(f"Resume not found for {recipient_email}")
+                return
+            
+            with staticfiles_storage.open(resume_path, "rb") as resume_file:
+                content = resume_file.read()
+            filename = "resume.pdf"
 
-    with staticfiles_storage.open(resume_path, "rb") as resume_file:
-        content = resume_file.read()
+        subject = "Your Requested Resume - Bethuel Moukangwe"
+        body = (
+            "Dear Recipient,\n\n"
+            "Thank you for your interest in my profile!\n\n"
+            "Please find attached my resume as requested. "
+            "I am a Data Engineer with expertise in cloud computing, "
+            "big data processing, and ETL pipelines.\n\n"
+            "Feel free to reach out if you have any questions or would like to discuss opportunities.\n\n"
+            "Best regards,\n"
+            "Bethuel Moukangwe\n"
+            "Data Engineer\n"
+            "Email: bethuelmoukangwe8@gmail.com"
+        )
+        from_email = settings.EMAIL_HOST_USER or 'bethuelmoukangwe8@gmail.com'
 
-    subject = "Your Requested Resume from Bethuel"
-    body = (
-        "Hi,\n\n"
-        "As requested, here is a copy of my resume attached as a PDF.\n\n"
-        "Best regards,\nBethuel"
-    )
-    from_email = settings.EMAIL_HOST_USER or 'noreply@bethuelportfolio.com'
-
-    email = EmailMessage(subject, body, from_email, [recipient_email])
-    email.attach("resume.pdf", content, "application/pdf")
-    email.send(fail_silently=False)
+        email = EmailMessage(subject, body, from_email, [recipient_email])
+        email.attach(filename, content, "application/pdf")
+        email.send(fail_silently=False)
+        
+        logger.info(f"Resume successfully sent to {recipient_email}")
+        
+    except Exception as e:
+        logger.error(f"Failed to send resume to {recipient_email}: {str(e)}")
+        raise
